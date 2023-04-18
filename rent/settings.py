@@ -93,7 +93,7 @@ DATABASES = {
        "NAME": "rent",
        "USER": "rent",
        "PASSWORD": "rent",
-       "HOST": "localhost",
+       "HOST": ("POSTGRES_HOST", "localhost"),
        "PORT": 5432,
    }
 }
