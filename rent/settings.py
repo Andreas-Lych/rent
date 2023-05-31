@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'crispy_forms',
     'crispy_bootstrap5',
+    'django_rq',
     "users",
     'shop',
 ]
@@ -91,15 +92,30 @@ WSGI_APPLICATION = 'rent.wsgi.application'
 DATABASES = {
    "default": {
        "ENGINE": "django.db.backends.postgresql",
-       "NAME": "rent",
-       "USER": "rent",
-       "PASSWORD": "rent",
+       "NAME": os.getenv("POSTGRES_NAME", "rent"),
+       "USER": os.getenv("POSTGRES_USER", "rent"),
+       "PASSWORD": os.getenv("POSTGRES_PASS", "rent"),
        "HOST": os.getenv("POSTGRES_HOST", "localhost"),
        "PORT": 5432,
    }
 }
 
+REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
+CACHES = {
+   "default": {
+       "BACKEND": "django.core.cache.backends.redis.RedisCache",
+       "LOCATION": f"redis://{REDIS_HOST}:6379",
+   }
+}
 
+RQ_QUEUES = {
+    'default': {
+       'HOST': REDIS_HOST,
+       'PORT': 6379,
+       'DB': 0,
+       'DEFAULT_TIMEOUT': 360,
+    },
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
