@@ -23,12 +23,12 @@ from shop.views import index, product_details
 from users.views import register_user, login_view, logout_view
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('register/', register_user, name='register'),
-    path('login/', login_view, name="login"),
-    path('logout/', logout_view, name="logout"),
-    path('', index, name="index"),
-    path('product/<int:product_id>/', product_details, name="product"),
+    path("admin/", admin.site.urls),
+    path("register/", register_user, name="register"),
+    path("login/", login_view, name="login"),
+    path("logout/", logout_view, name="logout"),
+    path("", index, name="index"),
+    path("product/<int:product_id>/", product_details, name="product"),
 ]
 
 if settings.DEBUG:
